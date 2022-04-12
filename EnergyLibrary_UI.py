@@ -81,60 +81,69 @@ class RecordData:
     def submit(self):
         flag = 0
         permission = False
+        MissionCount = 0
 
         # to determine whether number and value of LUMO HOMO IE EA input is correct
-        while permission == False:
-            if flag == 0:
+        while MissionCount < 4:
 
                 if self.entry_HOMO.get() == '':
-                    pass
+                    MissionCount += 1
                 else:
                     if self.entry_HOMO.get().lstrip("-").isdigit():
                         flag += 1
+                        MissionCount += 1
                     else:
                         tkmb.showerror(title = 'Wrong data type entered', message= 'Please check if you enter a number for HOMO energy!')
+                        break
 
                 if self.entry_LUMO.get() == '':
-                    pass
+                    MissionCount += 1
                 else:
                     if self.entry_LUMO.get().lstrip("-").isdigit():
                         flag +=1
+                        MissionCount += 1
                     else:
                         tkmb.showerror(title = 'Wrong data type entered', message= 'Please check if you enter a number for LUMO energy!')
+                        break
 
                 if self.entry_IE.get() == '':
-                    pass
+                    MissionCount += 1
                 else:
                     if self.entry_IE.get().lstrip("-").isdigit():
                         flag += 1
+                        MissionCount += 1
                     else:
                         tkmb.showerror(title = 'Wrong data type entered', message= 'Please check if you enter a number for IE!')
+                        break
 
                 if self.entry_EA.get() == '':
-                    pass
+                    MissionCount += 1
                 else:
                     if self.entry_EA.get().lstrip("-").isdigit():
                         flag += 1
+                        MissionCount += 1
                     else:
                         tkmb.showerror(title = 'Wrong data type entered', message= 'Please check if you enter a number for EA!')
-            if flag == 1 or 3:
+                        break
+
+        if MissionCount == 4:
+
+            if (flag % 2) != 0:
                 ans = tkmb.askyesno(message= 'Odd number of energy values entered! Do you want to proceed?')
                 if ans == True:
                     flag += 1
                     if self.entry_txtLocation.get() == '':
                         tkmb.showerror(title = 'No target txt file is assigned', message= 'Please enter a location of txt file!')
-                        break
                     else:
                         permission = True
                 elif ans == False:
-                    break
-            elif flag == 2 or 4:
+                    pass
+            elif (flag % 2) == 0:
                 if self.entry_txtLocation.get() == '':
                     tkmb.showerror(title = 'No target txt file is assigned', message= 'Please enter a location of txt file!')
-                    break
                 else:
                     permission = True
-
+        # record input values and write into txt file
         if permission == True:
             ValueTaken = {'Reference': self.entry_Reference.get(),
                       'Molecule_name': self.entry_Molecule_name.get(),
