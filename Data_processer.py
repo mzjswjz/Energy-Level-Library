@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tues April 12 2022
+
+@author: Ming Zhu
+"""
 import re #better
 
 class datapro:
