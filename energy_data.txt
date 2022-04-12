@@ -1,0 +1,10 @@
+
+#START#
+Reference={Example}
+Molecule_name={Example}
+HOMO={}
+LUMO={}
+IE={}
+EA={}
+Technique={Example}
+#END#
