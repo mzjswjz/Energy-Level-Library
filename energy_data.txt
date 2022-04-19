@@ -9,3 +9,13 @@ EA={}
 Technique={Example}
 #END#
 
+
+#START#
+Reference={}
+Molecule_name={}
+HOMO={-4}
+LUMO={-3}
+IE={}
+EA={}
+Technique={}
+#END#

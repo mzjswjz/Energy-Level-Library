@@ -79,82 +79,48 @@ class RecordData:
         ttk.Button(self.frame_content, text = 'Clear', command = self.clear).grid(row = 10, column = 1, padx = 5, pady = 5, sticky = 'w')
 
     def submit(self):
-        flag = 0
         permission = False
-        MissionCount = 0
 
         # to determine whether number and value of LUMO HOMO IE EA input is correct
-        while MissionCount < 4:
 
-                if self.entry_HOMO.get() == '':
-                    MissionCount += 1
-                else:
-                    if self.entry_HOMO.get().lstrip("-").isdigit():
-                        flag += 1
-                        MissionCount += 1
-                    else:
-                        tkmb.showerror(title = 'Wrong data type entered', message= 'Please check if you enter a number for HOMO energy!')
-                        break
+        Entry = [self.entry_Reference.get(), self.entry_Molecule_name.get(), self.entry_HOMO.get(), self.entry_LUMO.get(), self.entry_IE.get(), self.entry_EA.get(), self.entry_Technique.get(), self.entry_txtLocation.get()]
+        TxtLoc = Entry[-1] # get location of txt file
 
-                if self.entry_LUMO.get() == '':
-                    MissionCount += 1
-                else:
-                    if self.entry_LUMO.get().lstrip("-").isdigit():
-                        flag +=1
-                        MissionCount += 1
-                    else:
-                        tkmb.showerror(title = 'Wrong data type entered', message= 'Please check if you enter a number for LUMO energy!')
-                        break
 
-                if self.entry_IE.get() == '':
-                    MissionCount += 1
-                else:
-                    if self.entry_IE.get().lstrip("-").isdigit():
-                        flag += 1
-                        MissionCount += 1
-                    else:
-                        tkmb.showerror(title = 'Wrong data type entered', message= 'Please check if you enter a number for IE!')
-                        break
+        for u in Entry[2:5]:
+            if u == '':
+                pass
+            else:
+                try:
+                    float(u)
+                except ValueError:
+                    tkmb.showerror(title = 'Wrong data type entered', message= 'Please check if you enter numerial values for energy levels!')
 
-                if self.entry_EA.get() == '':
-                    MissionCount += 1
-                else:
-                    if self.entry_EA.get().lstrip("-").isdigit():
-                        flag += 1
-                        MissionCount += 1
-                    else:
-                        tkmb.showerror(title = 'Wrong data type entered', message= 'Please check if you enter a number for EA!')
-                        break
 
-        if MissionCount == 4:
 
-            if (flag % 2) != 0:
-                ans = tkmb.askyesno(message= 'Odd number of energy values entered! Do you want to proceed?')
-                if ans == True:
-                    flag += 1
-                    if self.entry_txtLocation.get() == '':
-                        tkmb.showerror(title = 'No target txt file is assigned', message= 'Please enter a location of txt file!')
-                    else:
-                        permission = True
-                elif ans == False:
-                    pass
-            elif (flag % 2) == 0:
-                if self.entry_txtLocation.get() == '':
-                    tkmb.showerror(title = 'No target txt file is assigned', message= 'Please enter a location of txt file!')
-                else:
-                    permission = True
+        # check if we have a txt file location
+        if self.entry_txtLocation.get() == '':
+            tkmb.showerror(title = 'No target txt file is assigned', message= 'Please enter a location for the txt file!')
+        else:
+            try:
+                txttest = open(TxtLoc, 'r')
+                txttest.close()
+                permission = True
+            except ValueError:
+                tkmb.showerror(title = 'Wrong txt file location', message= 'Please check if you entered a correct location for the txt file')
+
         # record input values and write into txt file
         if permission == True:
-            ValueTaken = {'Reference': self.entry_Reference.get(),
-                      'Molecule_name': self.entry_Molecule_name.get(),
-                      'HOMO': self.entry_HOMO.get(),
-                      'LUMO': self.entry_LUMO.get(),
-                      'IE': self.entry_IE.get(),
-                      'EA': self.entry_EA.get(),
-                      'Technique': self.entry_Technique.get()}
-
             Record = DataPro.datapro()
-            Record.write_file(self.entry_txtLocation.get(),ValueTaken)
+
+            ValueTaken = dict({})
+            num = 0
+
+            for u in Record.get_name_list():
+                ValueTaken[u] = Entry[num]
+                num += 1
+
+            Record.write_file(TxtLoc,ValueTaken)
             self.clear()
             tkmb.showinfo(title = 'Data Recorded!', message = 'Thank you for contributing!')
 
@@ -168,6 +134,8 @@ class RecordData:
         self.entry_EA.delete(0, 'end')
         self.entry_Technique.delete(0, 'end')
         self.entry_txtLocation.delete(0, 'end')
+
+
 
 
 def main():

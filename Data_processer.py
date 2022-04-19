@@ -60,13 +60,20 @@ class datapro:
                 f.write(f'{name}={{{DataDict[name]}}}\n')
             f.write('#END#\n')
 
+    def get_name_list(self):
+        name_list = dict({})
+        for u in self.__name_list.keys():
+            name_list[u] = self.__name_list[u]
+        return name_list
+
+
 
 
 
 if __name__ == '__main__':
-    pass
-    # DP = datapro()
-    # Data_result= DP.read_file('data.hld.txt')
+
+    DP = datapro()
+    print(DP.get_name_list())
     # print(Data_result)
     # print(Data_result[0]['LUMO']
     # Trydict= {'Reference': 'doi1', 'Molecule_name': 'DCV5T', 'HOMO': -3.0,'LUMO': -5.0,'IE': None,'EA': None, 'Technique': 'CV'  }
