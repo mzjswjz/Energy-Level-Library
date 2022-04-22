@@ -70,13 +70,12 @@ class datapro:
 
 
 
-if __name__ == '__main__':
-
-    DP = datapro()
-    print(DP.get_name_list())
-    # print(Data_result)
+# if __name__ == '__main__':
+#
+#     DP = datapro()
+#     print(DP.get_name_list())
+    # # print(Data_result)
     # print(Data_result[0]['LUMO']
     # Trydict= {'Reference': 'doi1', 'Molecule_name': 'DCV5T', 'HOMO': -3.0,'LUMO': -5.0,'IE': None,'EA': None, 'Technique': 'CV'  }
     # Try = datapro()
     # Try.write_file('data.hld.txt',Trydict)
-
