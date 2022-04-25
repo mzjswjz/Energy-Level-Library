@@ -110,11 +110,11 @@ class HandleData:
 
         ttk.Button(self.tabRead_content,
                    text = 'Submit',
-                   command = self.submit2,
+                   command = self.submitSearch,
                    style = 'TButton').grid(row = 2, column = 0, padx = 5, pady = 5, sticky = 's')
         ttk.Button(self.tabRead_content,
                    text = 'Clear',
-                   command = self.clear2,
+                   command = self.clearSearch,
                    style = 'TButton').grid(row = 2, column = 1, padx = 5, pady = 5, sticky = 'w')
 
 
@@ -124,7 +124,10 @@ class HandleData:
         self.combobox.grid(row = 3, column = 1, padx = 10)
         ttk.Button(self.tabRead_content,
                    text = 'Get Information of This Molecule',
-                   command = self.GetInfo, style = 'TButton').grid(row = 4, column = 0,columnspan = 2, padx = 5, pady = 5)
+                   command = self.GetInfo, style = 'TButton').grid(row = 4, column = 0, padx = 5, pady = 5, sticky = 's')
+        ttk.Button(self.tabRead_content,
+                   text = 'Clear',
+                   command = self.ClearInfo, style = 'TButton').grid(row = 4, column = 1, padx = 5, pady = 5, sticky = 'w')
         self.InfoText = Text(self.tabRead_content, height = 10, width = 60)
         self.InfoText.grid(row = 5, column = 0, columnspan = 2, padx = 5, pady = 5)
         # self.InfoText.insert('1.0', 'Line1\n')
@@ -201,7 +204,7 @@ class HandleData:
         self.entry_Technique.delete(0, 'end')
         self.entry_txtLocation.delete(0, 'end')
 
-    def submit2(self):
+    def submitSearch(self):
         flag = False
         SearchLoc = self.search_txtLocation.get()
         self.SearchData = DataPro.datapro()
@@ -228,7 +231,7 @@ class HandleData:
 
 
 
-    def clear2(self):
+    def clearSearch(self):
         self.search_txtLocation.delete(0,'end')
 
     def GetInfo(self):
@@ -241,6 +244,8 @@ class HandleData:
                 for key in item:
                     self.InfoText.insert(lineNum, f'{key}: {item[key]}\n')
                     lineNum += 1.0
+    def ClearInfo(self):
+        self.InfoText.delete(1.0, 'end')
 
 
 
