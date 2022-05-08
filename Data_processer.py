@@ -8,13 +8,27 @@ Created on Tues April 12 2022
 import re #better
 
 class datapro:
-    __name_list = {'Reference': str,
-                   'Molecule_name': str,
+    __name_list = {'Molecule_name_abbr': str,
+                   'Molecule_name_complete': str,
+                   'Empirical_formula': str,
+                   'CAS': str,
+                   'CIF': str,
+                   'Molecular_weight': float,
+                   'Density': float,
+                   'Provisional_evaporation_T': str,
                    'HOMO': float,
                    'LUMO': float,
                    'IE': float,
                    'EA': float,
-                   'Technique': str,
+                   'Technique_HOMO': str,
+                   'Technique_LUMO': str,
+                   'Technique_IE': str,
+                   'Technique_EA': str,
+                   'Reference_HOMO': str,
+                   'Reference_LUMO': str,
+                   'Reference_IE': str,
+                   'Reference_EA': str,
+                   'Reference_density': str,
                     }
 
     def __init__(self):
