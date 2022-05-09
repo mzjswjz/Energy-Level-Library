@@ -233,10 +233,13 @@ class HandleData:
         TxtLocRecord = Entry[-1] # get location of txt file
 
         NumEntry = [Entry[5], Entry[6], Entry[8], Entry[9], Entry[10], Entry[11]]
+        NameEntry = [Entry[0], Entry[1], Entry[2]]
 
+        #check if some entry is numeric value or not
         for u in NumEntry:
             if u == '':
                 pass
+                passOne = True
             else:
                 try:
                     passOne = False
@@ -245,6 +248,24 @@ class HandleData:
                 except ValueError:
                     tkmb.showerror(title = 'Wrong data type entered', message= 'Please check if you enter numerial values for Molecular weight, density or energy levels!')
                     break
+
+        #check if the user at least enter one name
+        numEmptyName = 0
+        for n in NameEntry:
+            if n == '':
+                numEmptyName += 1
+        if numEmptyName == len(NameEntry):
+            passOne = False
+
+
+
+        #check if all the entrys are empty
+        numEmptyEntry = 0
+        for e in Entry[0:-1]:
+            if e == '':
+                numEmptyEntry += 1
+        if numEmptyEntry == len(Entry[0:-1]):
+            passOne = False
 
 
 
@@ -273,6 +294,9 @@ class HandleData:
             Record.write_file(TxtLocRecord,ValueTaken)
             self.clearRecord()
             tkmb.showinfo(title = 'Data Recorded!', message = 'Thank you for contributing!')
+        else:
+            tkmb.showerror(title='Not enough inputs!', message='Please check if you entered enough inputs!')
+
 
 
     def clearRecord(self):
