@@ -188,7 +188,7 @@ class HandleData:
         #frame for diaplaying information
 
         self.search_molecule = StringVar()
-        self.combobox = ttk.Combobox(self.tabRead_content, textvariable = self.search_molecule)
+        self.combobox = ttk.Combobox(self.tabRead_content, width=30, height=5, textvariable = self.search_molecule)
         self.combobox.grid(row = 3, column = 1, padx = 5)
         ttk.Button(self.tabRead_content,
                    text = 'Get Information of This Molecule',
